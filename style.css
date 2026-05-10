@@ -1,90 +1,70 @@
-/* Reset básico para todos os elementos da página */
+/* Reset básico */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Estilo principal do corpo da página */
+/* Corpo da página */
 body {
-    font-family: Arial, sans-serif;
-    background: #f6f7fb;
-    color: #212121;
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    padding: 20px;
 }
 
-/* Contêiner centralizado com largura máxima */
+/* Container central */
 .container {
-    width: min(1080px, calc(100% - 32px));
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Barra superior com cor de destaque */
+/* Barra superior */
 .topbar {
-    background: #ff6b9d;
-    color: #fff;
-    padding: 20px 0;
-}
-
-/* Layout flexível do cabeçalho e rodapé */
-.header-inner,
-.footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .topbar h1 {
-    margin-bottom: 6px;
-    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 .topbar p {
-    color: #d0d7ea;
-    font-size: 0.95rem;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
-/* Estilo dos links de navegação do cabeçalho */
+/* Navegação */
+nav {
+    margin-top: 10px;
+}
+
 nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 16px;
-    font-weight: 600;
+    margin: 0 10px;
 }
 
-nav a:hover {
-    opacity: 0.9;
-}
-
-/* Cartão branco que envolve o conteúdo principal */
+/* Cartão de conteúdo */
 .content-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 24px rgba(40, 60, 80, 0.08);
-    padding: 24px;
-    margin: 24px 0;
+    padding: 20px;
+    margin: 20px 0;
 }
 
-/* Estilos das caixas de alerta */
-.alert {
-    border-radius: 8px;
-    padding: 14px 18px;
+/* Título da página */
+.page-title {
     margin-bottom: 20px;
-    font-weight: 500;
 }
 
-.alert-success {
-    background: #e6f4ea;
-    color: #1f6f3d;
+.page-title h2 {
+    margin-bottom: 10px;
 }
 
-.alert-error {
-    background: #fdecea;
-    color: #8b1a1a;
+/* Alertas */
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
-/* Rolagem lateral para tabelas em telas menores */
+/* Tabela */
 .table-wrap {
     overflow-x: auto;
 }
@@ -92,119 +72,51 @@ nav a:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
+    margin-top: 20px;
 }
 
 th, td {
+    padding: 12px;
     text-align: left;
-    padding: 14px 12px;
-    border-bottom: 1px solid #e6e9f1;
 }
 
-th {
-    color: #566275;
-    font-size: 0.95rem;
-}
-
-td {
-    color: #2b374f;
-}
-
-/* Botões com aparência consistente */
+/* Botões */
 .btn {
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-weight: 600;
-    transition: transform 0.18s ease, opacity 0.18s ease;
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px;
+    font-size: 14px;
 }
 
-.btn:hover {
-    transform: translateY(-1px);
-}
-
-.btn-primary {
-    background: #ff6b9d;
-    color: #fff;
-}
-
-.btn-secondary {
-    background: #64748b;
-    color: #fff;
-}
-
-.btn-danger {
-    background: #e14c4c;
-    color: #fff;
-}
-
-.btn-small {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-}
-
-/* Espaçamento entre campos do formulário */
+/* Formulários */
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
+    margin-bottom: 5px;
 }
 
-/* Estilo dos campos de entrada e do select */
 input[type="text"],
 input[type="email"],
 input[type="number"],
 select,
 textarea {
     width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #d3d7e1;
-    border-radius: 10px;
-    background: #f9fbff;
-    font-size: 1rem;
-    font-family: Arial, sans-serif;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus,
-select:focus,
-textarea:focus {
-    outline: 2px solid #ff6b9d;
-}
-
+/* Ações do formulário */
 .form-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    margin-top: 20px;
 }
 
+/* Rodapé */
 .footer {
-    padding: 20px 0 32px;
-    color: #7a8395;
-}
-
-/* Ajustes para telas menores, mantendo layout legível */
-@media (max-width: 720px) {
-    .header-inner,
-    .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    nav {
-        width: 100%;
-    }
-
-    nav a {
-        display: inline-block;
-        margin-left: 0;
-        margin-right: 12px;
-        margin-bottom: 10px;
-    }
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
 }

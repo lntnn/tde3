@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "id": 1,
+        "name": "dawdaw",
+        "category": "Alimentos",
+        "price": 21,
+        "quantity": 12
+    }
+]

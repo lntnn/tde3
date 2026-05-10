@@ -17,34 +17,34 @@ if (!$record) {
 
 // Inicializa as variáveis que serão exibidas no formulário.
 $errors = [];
-$name = $record['name'];
-$category = $record['category'];
-$price = $record['price'];
-$quantity = $record['quantity'];
+$nome = $record['nome'] ?? '';
+$categoria = $record['categoria'] ?? '';
+$preco = $record['preco'] ?? '';
+$quantidade = $record['quantidade'] ?? '';
 
 // Executa a atualização quando o formulário for enviado.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Limpa espaços em branco ao redor dos valores enviados.
-    $name = trim($_POST['name'] ?? '');
-    $category = trim($_POST['category'] ?? '');
-    $price = trim($_POST['price'] ?? '');
-    $quantity = trim($_POST['quantity'] ?? '');
+    $nome = trim($_POST['name'] ?? '');
+    $categoria = trim($_POST['category'] ?? '');
+    $preco = trim($_POST['price'] ?? '');
+    $quantidade = trim($_POST['quantity'] ?? '');
 
     // Validação dos campos do formulário.
-    if ($name === '') {
+    if ($nome === '') {
         $errors[] = 'O campo Nome do Produto é obrigatório.';
     }
-    if ($category === '') {
+    if ($categoria === '') {
         $errors[] = 'O campo Categoria é obrigatório.';
     }
-    if ($price === '') {
+    if ($preco === '') {
         $errors[] = 'O campo Preço é obrigatório.';
-    } elseif (!is_numeric($price) || $price < 0) {
+    } elseif (!is_numeric($preco) || $preco < 0) {
         $errors[] = 'O preço deve ser um número válido e positivo.';
     }
-    if ($quantity === '') {
+    if ($quantidade === '') {
         $errors[] = 'O campo Quantidade é obrigatório.';
-    } elseif (!is_numeric($quantity) || $quantity < 0) {
+    } elseif (!is_numeric($quantidade) || $quantidade < 0) {
         $errors[] = 'A quantidade deve ser um número válido e positivo.';
     }
 
@@ -52,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         foreach ($records as &$item) {
             if ((int)$item['id'] === (int)$id) {
-                $item['name'] = $name;
-                $item['category'] = $category;
-                $item['price'] = (float)$price;
-                $item['quantity'] = (int)$quantity;
+                $item['nome'] = $nome;
+                $item['categoria'] = $categoria;
+                $item['preco'] = (float)$preco;
+                $item['quantidade'] = (int)$quantidade;
                 break;
             }
         }
@@ -90,29 +90,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="post" action="edit.php?id=<?php echo urlencode($id); ?>">
         <div class="form-group">
             <label for="name">Nome do Produto</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($nome, ENT_QUOTES, 'UTF-8'); ?>">
         </div>
 
         <div class="form-group">
             <label for="category">Categoria</label>
             <select id="category" name="category">
                 <option value="">Selecione uma categoria</option>
-                <option value="Alimentos" <?php echo $category === 'Alimentos' ? 'selected' : ''; ?>>Alimentos</option>
-                <option value="Brinquedos" <?php echo $category === 'Brinquedos' ? 'selected' : ''; ?>>Brinquedos</option>
-                <option value="Acessórios" <?php echo $category === 'Acessórios' ? 'selected' : ''; ?>>Acessórios</option>
-                <option value="Higiene" <?php echo $category === 'Higiene' ? 'selected' : ''; ?>>Higiene</option>
-                <option value="Medicamentos" <?php echo $category === 'Medicamentos' ? 'selected' : ''; ?>>Medicamentos</option>
+                <option value="Alimentos" <?php echo $categoria === 'Alimentos' ? 'selected' : ''; ?>>Alimentos</option>
+                <option value="Brinquedos" <?php echo $categoria === 'Brinquedos' ? 'selected' : ''; ?>>Brinquedos</option>
+                <option value="Acessórios" <?php echo $categoria === 'Acessórios' ? 'selected' : ''; ?>>Acessórios</option>
+                <option value="Higiene" <?php echo $categoria === 'Higiene' ? 'selected' : ''; ?>>Higiene</option>
+                <option value="Medicamentos" <?php echo $categoria === 'Medicamentos' ? 'selected' : ''; ?>>Medicamentos</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="price">Preço (R$)</label>
-            <input type="number" id="price" name="price" step="0.01" min="0" value="<?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="number" id="price" name="price" step="0.01" min="0" value="<?php echo htmlspecialchars($preco, ENT_QUOTES, 'UTF-8'); ?>">
         </div>
 
         <div class="form-group">
             <label for="quantity">Quantidade em Estoque</label>
-            <input type="number" id="quantity" name="quantity" min="0" value="<?php echo htmlspecialchars($quantity, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="number" id="quantity" name="quantity" min="0" value="<?php echo htmlspecialchars($quantidade, ENT_QUOTES, 'UTF-8'); ?>">
         </div>
 
         <div class="form-actions">

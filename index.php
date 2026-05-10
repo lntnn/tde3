@@ -47,10 +47,10 @@ $type = $_GET['type'] ?? 'success';
                     <?php foreach ($records as $record): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($record['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo htmlspecialchars($record['name'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo htmlspecialchars($record['category'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td>R$ <?php echo number_format($record['price'], 2, ',', '.'); ?></td>
-                            <td><?php echo htmlspecialchars($record['quantity'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($record['nome'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($record['categoria'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td>R$ <?php echo number_format($record['preco'] ?? 0, 2, ',', '.'); ?></td>
+                            <td><?php echo htmlspecialchars($record['quantidade'] ?? 0, ENT_QUOTES, 'UTF-8'); ?></td>
                             <td>
                                 <a class="btn btn-small btn-secondary" href="edit.php?id=<?php echo urlencode($record['id']); ?>">Editar</a>
                                 <a class="btn btn-small btn-danger" href="delete.php?id=<?php echo urlencode($record['id']); ?>" onclick="return confirmDelete(<?php echo htmlspecialchars($record['id'], ENT_QUOTES, 'UTF-8'); ?>)">Excluir</a>

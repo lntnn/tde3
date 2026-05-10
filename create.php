@@ -6,43 +6,43 @@ require_once 'functions.php';
 $errors = [];
 
 // Variáveis iniciais para os campos do formulário.
-$name = '';
-$category = '';
-$price = '';
-$quantity = '';
+$nome = '';
+$categoria = '';
+$preco = '';
+$quantidade = '';
 
 // Verifica se a requisição foi feita via POST, ou seja, se o formulário foi enviado.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Captura o valor do campo "name" enviado pelo formulário e remove espaços extras.
-    $name = trim($_POST['name'] ?? '');
+    $nome = trim($_POST['name'] ?? '');
     // Captura o valor do campo "category" enviado pelo formulário.
-    $category = trim($_POST['category'] ?? '');
+    $categoria = trim($_POST['category'] ?? '');
     // Captura o valor do campo "price" enviado pelo formulário.
-    $price = trim($_POST['price'] ?? '');
+    $preco = trim($_POST['price'] ?? '');
     // Captura o valor do campo "quantity" enviado pelo formulário.
-    $quantity = trim($_POST['quantity'] ?? '');
+    $quantidade = trim($_POST['quantity'] ?? '');
 
     // Validação do campo Nome do Produto: obrigatório e não vazio.
-    if ($name === '') {
+    if ($nome === '') {
         $errors[] = 'O campo Nome do Produto é obrigatório.';
     }
 
     // Validação do campo Categoria: obrigatório e não vazio.
-    if ($category === '') {
+    if ($categoria === '') {
         $errors[] = 'O campo Categoria é obrigatório.';
     }
 
     // Validação do campo Preço: obrigatório, numérico e não negativo.
-    if ($price === '') {
+    if ($preco === '') {
         $errors[] = 'O campo Preço é obrigatório.';
-    } elseif (!is_numeric($price) || $price < 0) {
+    } elseif (!is_numeric($preco) || $preco < 0) {
         $errors[] = 'O preço deve ser um número válido e positivo.';
     }
 
     // Validação do campo Quantidade: obrigatório, numérico e não negativo.
-    if ($quantity === '') {
+    if ($quantidade === '') {
         $errors[] = 'O campo Quantidade é obrigatório.';
-    } elseif (!is_numeric($quantity) || $quantity < 0) {
+    } elseif (!is_numeric($quantidade) || $quantidade < 0) {
         $errors[] = 'A quantidade deve ser um número válido e positivo.';
     }
 
@@ -54,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Cria um novo registro com os dados enviados pelo formulário.
         $newRecord = [
             'id' => getNewId($records), // Gera um novo ID exclusivo com base nos registros atuais.
-            'name' => $name,
-            'category' => $category,
-            'price' => (float)$price, // Converte o preço para float.
-            'quantity' => (int)$quantity, // Converte a quantidade para inteiro.
+            'nome' => $nome,
+            'categoria' => $categoria,
+            'preco' => (float)$preco, // Converte o preço para float.
+            'quantidade' => (int)$quantidade, // Converte a quantidade para inteiro.
         ];
 
         // Adiciona o novo registro ao array de registros.
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 id="name"
                 name="name"
                 placeholder="Ex: Ração para Gatos"
-                value="<?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>"
+                value="<?php echo htmlspecialchars($nome, ENT_QUOTES, 'UTF-8'); ?>"
             >
         </div>
 
@@ -110,11 +110,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="category">Categoria</label>
             <select id="category" name="category">
                 <option value="">Selecione uma categoria</option>
-                <option value="Alimentos" <?php echo $category === 'Alimentos' ? 'selected' : ''; ?>>Alimentos</option>
-                <option value="Brinquedos" <?php echo $category === 'Brinquedos' ? 'selected' : ''; ?>>Brinquedos</option>
-                <option value="Acessórios" <?php echo $category === 'Acessórios' ? 'selected' : ''; ?>>Acessórios</option>
-                <option value="Higiene" <?php echo $category === 'Higiene' ? 'selected' : ''; ?>>Higiene</option>
-                <option value="Medicamentos" <?php echo $category === 'Medicamentos' ? 'selected' : ''; ?>>Medicamentos</option>
+                <option value="Alimentos" <?php echo $categoria === 'Alimentos' ? 'selected' : ''; ?>>Alimentos</option>
+                <option value="Brinquedos" <?php echo $categoria === 'Brinquedos' ? 'selected' : ''; ?>>Brinquedos</option>
+                <option value="Acessórios" <?php echo $categoria === 'Acessórios' ? 'selected' : ''; ?>>Acessórios</option>
+                <option value="Higiene" <?php echo $categoria === 'Higiene' ? 'selected' : ''; ?>>Higiene</option>
+                <option value="Medicamentos" <?php echo $categoria === 'Medicamentos' ? 'selected' : ''; ?>>Medicamentos</option>
             </select>
         </div>
 
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 placeholder="Ex: 49.90"
                 step="0.01"
                 min="0"
-                value="<?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8'); ?>"
+                value="<?php echo htmlspecialchars($preco, ENT_QUOTES, 'UTF-8'); ?>"
             >
         </div>
 
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 name="quantity"
                 placeholder="Ex: 10"
                 min="0"
-                value="<?php echo htmlspecialchars($quantity, ENT_QUOTES, 'UTF-8'); ?>"
+                value="<?php echo htmlspecialchars($quantidade, ENT_QUOTES, 'UTF-8'); ?>"
             >
         </div>
 
