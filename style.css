@@ -14,7 +14,7 @@ body {
     margin: 0 auto;
 }
 .topbar {
-    background: #2e3b57;
+    background: #ff6b9d;
     color: #fff;
     padding: 20px 0;
 }
@@ -95,7 +95,7 @@ td {
     transform: translateY(-1px);
 }
 .btn-primary {
-    background: #3f6df0;
+    background: #ff6b9d;
     color: #fff;
 }
 .btn-secondary {
@@ -120,6 +120,8 @@ label {
 }
 input[type="text"],
 input[type="email"],
+input[type="number"],
+select,
 textarea {
     width: 100%;
     padding: 12px 14px;
@@ -127,11 +129,14 @@ textarea {
     border-radius: 10px;
     background: #f9fbff;
     font-size: 1rem;
+    font-family: Arial, sans-serif;
 }
 input[type="text"]:focus,
 input[type="email"]:focus,
+input[type="number"]:focus,
+select:focus,
 textarea:focus {
-    outline: 2px solid #3f6df0;
+    outline: 2px solid #ff6b9d;
 }
 .form-actions {
     display: flex;

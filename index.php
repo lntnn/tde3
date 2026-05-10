@@ -7,8 +7,8 @@ $type = $_GET['type'] ?? 'success';
 <?php include 'header.php'; ?>
 <section class="content-card">
     <div class="page-title">
-        <h2>Lista de Registros</h2>
-        <p>Visualize, edite ou exclua os dados gravados no arquivo JSON.</p>
+        <h2>Produtos em Estoque</h2>
+        <p>Visualize, edite ou exclua os produtos do pet shop.</p>
     </div>
 
     <?php if ($message): ?>
@@ -22,24 +22,26 @@ $type = $_GET['type'] ?? 'success';
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($records)): ?>
                     <tr>
-                        <td colspan="5">Nenhum registro encontrado. Use o botão "Cadastrar" para adicionar.</td>
+                        <td colspan="6">Nenhum produto cadastrado. Use o botão "Cadastrar" para adicionar um novo produto.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($records as $record): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($record['id'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo htmlspecialchars($record['name'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo htmlspecialchars($record['email'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?php echo htmlspecialchars($record['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($record['category'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td>R$ <?php echo number_format($record['price'], 2, ',', '.'); ?></td>
+                            <td><?php echo htmlspecialchars($record['quantity'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td>
                                 <a class="btn btn-small btn-secondary" href="edit.php?id=<?php echo urlencode($record['id']); ?>">Editar</a>
                                 <a class="btn btn-small btn-danger" href="delete.php?id=<?php echo urlencode($record['id']); ?>" onclick="return confirmDelete(<?php echo htmlspecialchars($record['id'], ENT_QUOTES, 'UTF-8'); ?>)">Excluir</a>

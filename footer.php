@@ -4,7 +4,7 @@
 </main>
 <footer class="footer">
     <div class="container footer-inner">
-        <p>CRUD em PHP com armazenamento JSON | Projeto acadêmico</p>
+        <p>🐾 Pet Shop Manager | CRUD em PHP com armazenamento JSON | Projeto acadêmico</p>
     </div>
 </footer>
 <script>

@@ -1,36 +1,107 @@
-# CRUD Simples em PHP Puro
+# Pet Shop Manager - CRUD em PHP Puro
 
-Este projeto é um CRUD básico em PHP puro que utiliza um arquivo JSON como armazenamento. Foi criado para apresentação acadêmica e TDE.
+Sistema de gerenciamento de produtos para pet shop. CRUD básico em PHP puro que utiliza um arquivo JSON como armazenamento. Criado para apresentação acadêmica e projetos educacionais.
 
-## Estrutura de arquivos
+## Características
 
-- `index.php` → lista os registros
-- `create.php` → página de cadastro de novo registro
-- `edit.php` → edição de registro existente
-- `delete.php` → exclusão de registro
-- `functions.php` → funções de leitura/escrita e validação
-- `header.php` / `footer.php` → componentes de layout reutilizáveis
-- `data.json` → banco de dados simples em JSON
-- `style.css` → estilo responsivo e minimalista
+✅ CRUD funcional e simples  
+✅ Gerenciamento de produtos de pet shop  
+✅ Armazenamento em JSON (sem banco de dados)  
+✅ Sem bibliotecas externas ou frameworks  
+✅ Interface HTML básica e responsiva  
+✅ Tema Pet Shop com cores personalizadas  
+✅ Ideal para trabalho acadêmico
 
-## Como rodar localmente
+## Campos do Produto
 
-1. Instale o XAMPP, Laragon ou outro servidor local com PHP.
-2. Copie a pasta do projeto para a pasta `htdocs` do XAMPP ou para `www` do Laragon.
-3. Inicie o servidor Apache.
+- **ID** - Identificador único (gerado automaticamente)
+- **Nome** - Nome do produto
+- **Categoria** - Tipo de produto (Alimentos, Brinquedos, Acessórios, Higiene, Medicamentos)
+- **Preço** - Valor do produto em R$
+- **Quantidade** - Quantidade em estoque
+
+## Estrutura de Arquivos
+
+- `index.php` → Lista todos os produtos em tabela
+- `create.php` → Cadastro de novo produto
+- `edit.php` → Edição de produto existente
+- `delete.php` → Exclusão de produto
+- `functions.php` → Funções reutilizáveis de leitura/escrita e validação
+- `header.php` / `footer.php` → Componentes de layout HTML
+- `data.json` → Armazenamento de dados em JSON
+- `style.css` → Estilo simples e responsivo
+
+## Como Rodar Localmente
+
+1. Instale o XAMPP, Laragon ou outro servidor local com PHP 7.4+
+2. Copie a pasta do projeto para a pasta `htdocs` (XAMPP) ou `www` (Laragon)
+3. Inicie o servidor Apache
 4. Acesse no navegador:
-   - `http://localhost/tde3/index.php` (ou caminho ajustado conforme o nome da pasta)
+   ```
+   http://localhost/tde3/index.php
+   ```
 
-## Funcionamento
+## Funcionalidades
 
-- Os dados são gravados no arquivo `data.json`.
-- `index.php` mostra todos os registros em tabela.
-- `create.php` adiciona um novo registro com validação de campos obrigatórios.
-- `edit.php` atualiza o registro selecionado.
-- `delete.php` remove o registro escolhido.
+### 📝 Cadastrar Produto
+- Acesso através do botão "Cadastrar" no menu
+- Validação de campos obrigatórios
+- Seleção de categoria via dropdown
+- Validação de preço e quantidade (devem ser numéricos)
 
-## Observações
+### 📋 Listar Produtos
+- Visualização de todos os produtos em tabela
+- Exibição de ID, Nome, Categoria, Preço e Quantidade
+- Acesso rápido às ações (editar/excluir)
 
-- Não utiliza banco de dados SQL.
-- Todos os dados são persistidos em `data.json`.
-- Interface simples, limpa e fácil de apresentar.
+### ✏️ Editar Produto
+- Atualização de dados do produto selecionado
+- Validação de campos durante edição
+- Confirmação antes de atualizar
+
+### 🗑️ Excluir Produto
+- Remoção de produto do estoque
+- Confirmação de exclusão antes de executar
+
+## Estrutura de Dados (JSON)
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Ração Premium para Gatos",
+    "category": "Alimentos",
+    "price": 49.90,
+    "quantity": 15
+  },
+  {
+    "id": 2,
+    "name": "Bola de Brinquedo para Cães",
+    "category": "Brinquedos",
+    "price": 12.50,
+    "quantity": 32
+  }
+]
+```
+
+## Observações Importantes
+
+- ✅ Sem banco de dados SQL - armazenamento 100% em arquivo JSON
+- ✅ PHP puro - sem dependências ou frameworks
+- ✅ HTML básico e funcional - sem CSS elaborado, mas com design limpo
+- ✅ Fácil de entender e explicar
+- ✅ Pronto para apresentação acadêmica
+- ✅ Totalmente responsivo e funcional
+
+## Requisitos
+
+- PHP 7.4 ou superior
+- Servidor web com suporte PHP (Apache recomendado)
+- Permissão de escrita na pasta para criar/editar `data.json`
+
+## Segurança
+
+- Todos os dados são escapados com `htmlspecialchars()` para prevenir XSS
+- Validação de entrada em todos os formulários
+- Uso de `urlencode()` para parameters na URL
+
