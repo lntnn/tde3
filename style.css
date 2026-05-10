@@ -1,23 +1,32 @@
+/* Reset básico para todos os elementos da página */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+/* Estilo principal do corpo da página */
 body {
     font-family: Arial, sans-serif;
     background: #f6f7fb;
     color: #212121;
     min-height: 100vh;
 }
+
+/* Contêiner centralizado com largura máxima */
 .container {
     width: min(1080px, calc(100% - 32px));
     margin: 0 auto;
 }
+
+/* Barra superior com cor de destaque */
 .topbar {
     background: #ff6b9d;
     color: #fff;
     padding: 20px 0;
 }
+
+/* Layout flexível do cabeçalho e rodapé */
 .header-inner,
 .footer-inner {
     display: flex;
@@ -25,23 +34,30 @@ body {
     align-items: center;
     gap: 16px;
 }
+
 .topbar h1 {
     margin-bottom: 6px;
     font-size: 1.5rem;
 }
+
 .topbar p {
     color: #d0d7ea;
     font-size: 0.95rem;
 }
+
+/* Estilo dos links de navegação do cabeçalho */
 nav a {
     color: #fff;
     text-decoration: none;
     margin-left: 16px;
     font-weight: 600;
 }
+
 nav a:hover {
     opacity: 0.9;
 }
+
+/* Cartão branco que envolve o conteúdo principal */
 .content-card {
     background: #fff;
     border-radius: 12px;
@@ -49,40 +65,52 @@ nav a:hover {
     padding: 24px;
     margin: 24px 0;
 }
+
+/* Estilos das caixas de alerta */
 .alert {
     border-radius: 8px;
     padding: 14px 18px;
     margin-bottom: 20px;
     font-weight: 500;
 }
+
 .alert-success {
     background: #e6f4ea;
     color: #1f6f3d;
 }
+
 .alert-error {
     background: #fdecea;
     color: #8b1a1a;
 }
+
+/* Rolagem lateral para tabelas em telas menores */
 .table-wrap {
     overflow-x: auto;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 16px;
 }
+
 th, td {
     text-align: left;
     padding: 14px 12px;
     border-bottom: 1px solid #e6e9f1;
 }
+
 th {
     color: #566275;
     font-size: 0.95rem;
 }
+
 td {
     color: #2b374f;
 }
+
+/* Botões com aparência consistente */
 .btn {
     border: none;
     cursor: pointer;
@@ -91,33 +119,43 @@ td {
     font-weight: 600;
     transition: transform 0.18s ease, opacity 0.18s ease;
 }
+
 .btn:hover {
     transform: translateY(-1px);
 }
+
 .btn-primary {
     background: #ff6b9d;
     color: #fff;
 }
+
 .btn-secondary {
     background: #64748b;
     color: #fff;
 }
+
 .btn-danger {
     background: #e14c4c;
     color: #fff;
 }
+
 .btn-small {
     padding: 8px 12px;
     font-size: 0.9rem;
 }
+
+/* Espaçamento entre campos do formulário */
 .form-group {
     margin-bottom: 18px;
 }
+
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
 }
+
+/* Estilo dos campos de entrada e do select */
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -131,6 +169,7 @@ textarea {
     font-size: 1rem;
     font-family: Arial, sans-serif;
 }
+
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
@@ -138,24 +177,30 @@ select:focus,
 textarea:focus {
     outline: 2px solid #ff6b9d;
 }
+
 .form-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
 }
+
 .footer {
     padding: 20px 0 32px;
     color: #7a8395;
 }
+
+/* Ajustes para telas menores, mantendo layout legível */
 @media (max-width: 720px) {
     .header-inner,
     .footer-inner {
         flex-direction: column;
         align-items: flex-start;
     }
+
     nav {
         width: 100%;
     }
+
     nav a {
         display: inline-block;
         margin-left: 0;

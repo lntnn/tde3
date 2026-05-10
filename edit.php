@@ -1,25 +1,36 @@
 <?php
 require_once 'functions.php';
+
+// Lê todos os registros existentes para encontrar o item a ser editado.
 $records = readData();
+
+// Captura o ID enviado por query string.
 $id = $_GET['id'] ?? null;
+
+// Busca o registro correspondente ao ID informado.
 $record = $id ? findRecordById($records, $id) : null;
 
+// Se não houver registro com esse ID, redireciona com erro.
 if (!$record) {
     redirectWithMessage('index.php', 'Registro não encontrado.', 'error');
 }
 
+// Inicializa as variáveis que serão exibidas no formulário.
 $errors = [];
 $name = $record['name'];
 $category = $record['category'];
 $price = $record['price'];
 $quantity = $record['quantity'];
 
+// Executa a atualização quando o formulário for enviado.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Limpa espaços em branco ao redor dos valores enviados.
     $name = trim($_POST['name'] ?? '');
     $category = trim($_POST['category'] ?? '');
     $price = trim($_POST['price'] ?? '');
     $quantity = trim($_POST['quantity'] ?? '');
 
+    // Validação dos campos do formulário.
     if ($name === '') {
         $errors[] = 'O campo Nome do Produto é obrigatório.';
     }
@@ -37,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'A quantidade deve ser um número válido e positivo.';
     }
 
+    // Se não houver erros, atualiza o registro e salva os dados.
     if (empty($errors)) {
         foreach ($records as &$item) {
             if ((int)$item['id'] === (int)$id) {
@@ -47,19 +59,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             }
         }
-        unset($item);
+        unset($item); // Limpa referência após uso.
+
         saveData($records);
         redirectWithMessage('index.php', 'Produto atualizado com sucesso.');
     }
 }
 ?>
+
 <?php include 'header.php'; ?>
+
 <section class="content-card">
     <div class="page-title">
         <h2>Editar Produto</h2>
         <p>Atualize as informações do produto selecionado.</p>
     </div>
 
+    <!-- Exibe mensagens de erro se a validação falhar -->
     <?php if (!empty($errors)): ?>
         <div class="alert alert-error">
             <ul>
@@ -70,11 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
+    <!-- Formulário para editar o produto -->
     <form method="post" action="edit.php?id=<?php echo urlencode($id); ?>">
         <div class="form-group">
             <label for="name">Nome do Produto</label>
             <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>">
         </div>
+
         <div class="form-group">
             <label for="category">Categoria</label>
             <select id="category" name="category">
@@ -86,10 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="Medicamentos" <?php echo $category === 'Medicamentos' ? 'selected' : ''; ?>>Medicamentos</option>
             </select>
         </div>
+
         <div class="form-group">
             <label for="price">Preço (R$)</label>
             <input type="number" id="price" name="price" step="0.01" min="0" value="<?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8'); ?>">
         </div>
+
         <div class="form-group">
             <label for="quantity">Quantidade em Estoque</label>
             <input type="number" id="quantity" name="quantity" min="0" value="<?php echo htmlspecialchars($quantity, ENT_QUOTES, 'UTF-8'); ?>">
@@ -101,4 +121,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </form>
 </section>
+
 <?php include 'footer.php'; ?>

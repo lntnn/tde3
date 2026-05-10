@@ -8,6 +8,7 @@
     </div>
 </footer>
 <script>
+// Função JavaScript usada para confirmar a exclusão do registro.
 function confirmDelete(id) {
     return confirm('Deseja realmente excluir este registro?');
 }
