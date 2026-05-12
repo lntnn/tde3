@@ -1,73 +1,31 @@
 <?php
-// Inclui o arquivo "functions.php" que contém funções reutilizáveis para ler, gravar e redirecionar dados.
 require_once 'functions.php';
 
-// Array para armazenar mensagens de erro de validação.
 $errors = [];
-
-// Variáveis iniciais para os campos do formulário.
 $nome = '';
 $categoria = '';
 $preco = '';
 $quantidade = '';
 
-// Verifica se a requisição foi feita via POST, ou seja, se o formulário foi enviado.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Captura o valor do campo "name" enviado pelo formulário e remove espaços extras.
     $nome = trim($_POST['name'] ?? '');
-    // Captura o valor do campo "category" enviado pelo formulário.
     $categoria = trim($_POST['category'] ?? '');
-    // Captura o valor do campo "price" enviado pelo formulário.
     $preco = trim($_POST['price'] ?? '');
-    // Captura o valor do campo "quantity" enviado pelo formulário.
     $quantidade = trim($_POST['quantity'] ?? '');
 
-    // Validação do campo Nome do Produto: obrigatório e não vazio.
-    if ($nome === '') {
-        $errors[] = 'O campo Nome do Produto é obrigatório.';
-    }
+    if ($nome === '') $errors[] = 'Nome obrigatório.';
+    if ($categoria === '') $errors[] = 'Categoria obrigatória.';
+    if ($preco === '') $errors[] = 'Preço obrigatório.';
+    elseif (!is_numeric($preco) || $preco < 0) $errors[] = 'Preço inválido.';
+    if ($quantidade === '') $errors[] = 'Quantidade obrigatória.';
+    elseif (!is_numeric($quantidade) || $quantidade < 0) $errors[] = 'Quantidade inválida.';
 
-    // Validação do campo Categoria: obrigatório e não vazio.
-    if ($categoria === '') {
-        $errors[] = 'O campo Categoria é obrigatório.';
-    }
-
-    // Validação do campo Preço: obrigatório, numérico e não negativo.
-    if ($preco === '') {
-        $errors[] = 'O campo Preço é obrigatório.';
-    } elseif (!is_numeric($preco) || $preco < 0) {
-        $errors[] = 'O preço deve ser um número válido e positivo.';
-    }
-
-    // Validação do campo Quantidade: obrigatório, numérico e não negativo.
-    if ($quantidade === '') {
-        $errors[] = 'O campo Quantidade é obrigatório.';
-    } elseif (!is_numeric($quantidade) || $quantidade < 0) {
-        $errors[] = 'A quantidade deve ser um número válido e positivo.';
-    }
-
-    // Se não houver erros de validação, salva o produto.
     if (empty($errors)) {
-        // Lê os registros existentes do arquivo JSON ou do armazenamento configurado.
-        $records = readData();
-
-        // Cria um novo registro com os dados enviados pelo formulário.
-        $newRecord = [
-            'id' => getNewId($records), // Gera um novo ID exclusivo com base nos registros atuais.
-            'nome' => $nome,
-            'categoria' => $categoria,
-            'preco' => (float)$preco, // Converte o preço para float.
-            'quantidade' => (int)$quantidade, // Converte a quantidade para inteiro.
-        ];
-
-        // Adiciona o novo registro ao array de registros.
-        $records[] = $newRecord;
-
-        // Salva os registros atualizados no arquivo JSON ou no armazenamento.
-        saveData($records);
-
-        // Redireciona para a página principal exibindo mensagem de sucesso.
-        redirectWithMessage('index.php', 'Produto cadastrado com sucesso.');
+        if (createProduct($nome, $categoria, $preco, $quantidade)) {
+            redirectWithMessage('index.php', 'Produto cadastrado com sucesso.');
+        } else {
+            $errors[] = 'Erro ao salvar.';
+        }
     }
 }
 ?>
@@ -81,19 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Preencha o formulário abaixo para adicionar um novo produto ao pet shop.</p>
     </div>
 
-    <!-- Exibe mensagens de erro se houver validação falha -->
     <?php if (!empty($errors)): ?>
         <div class="alert alert-error">
             <ul>
                 <?php foreach ($errors as $error): ?>
-                    <!-- Exibe cada erro com escape seguro para evitar XSS -->
                     <li><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
     <?php endif; ?>
-
-    <!-- Formulário de cadastro de produto -->
     <form method="post" action="create.php">
         <div class="form-group">
             <label for="name">Nome do Produto</label>

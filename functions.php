@@ -1,51 +1,55 @@
 <?php
-// Funções reutilizáveis para leitura, escrita e operações de dados.
+// Funções reutilizáveis para leitura, escrita e operações de dados usando PostgreSQL.
 
-// Retorna o caminho absoluto do arquivo JSON de dados.
-function getDataFilePath() {
-    return __DIR__ . '/data.json';
+// Configurações do banco de dados
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'db_petshop');  
+define('DB_USER', 'postgres');    
+define('DB_PASS', '1234');   
+
+// Retorna uma conexão PDO com o banco de dados.
+function getDbConnection() {
+    try {
+        $dsn = "pgsql:host=" . DB_HOST . ";dbname=" . DB_NAME;
+        $pdo = new PDO($dsn, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch (PDOException $e) {
+        die("Erro na conexão com o banco de dados: " . $e->getMessage());
+    }
 }
 
-// Lê o arquivo JSON de dados e retorna um array de registros.
-// Se o arquivo não existir ou estiver vazio, retorna array vazio.
 function readData() {
-    $file = getDataFilePath();
-    if (!file_exists($file)) {
-        return [];
-    }
-
-    $json = file_get_contents($file);
-    $data = json_decode($json, true);
-
-    // Garante que o retorno seja sempre um array válido.
-    return is_array($data) ? $data : [];
+    $pdo = getDbConnection();
+    $stmt = $pdo->query("SELECT id, nome, categoria, preco, quantidade FROM produtos ORDER BY id");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Salva os dados no arquivo JSON usando formatação legível.
-function saveData(array $data) {
-    $file = getDataFilePath();
-    file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+function createProduct($nome, $categoria, $preco, $quantidade) {
+    $pdo = getDbConnection();
+    $stmt = $pdo->prepare("INSERT INTO produtos (nome, categoria, preco, quantidade) VALUES (?, ?, ?, ?)");
+    return $stmt->execute([$nome, $categoria, $preco, $quantidade]);
 }
 
-// Retorna o próximo ID livre com base nos IDs existentes.
-function getNewId(array $items) {
-    $ids = array_column($items, 'id');
-    return empty($ids) ? 1 : max($ids) + 1;
+function updateProduct($id, $nome, $categoria, $preco, $quantidade) {
+    $pdo = getDbConnection();
+    $stmt = $pdo->prepare("UPDATE produtos SET nome = ?, categoria = ?, preco = ?, quantidade = ? WHERE id = ?");
+    return $stmt->execute([$nome, $categoria, $preco, $quantidade, $id]);
 }
 
-// Procura um registro pelo seu ID e retorna o registro encontrado.
-// Retorna null caso nenhum registro corresponda.
-function findRecordById(array $items, $id) {
-    foreach ($items as $item) {
-        if ((int)$item['id'] === (int)$id) {
-            return $item;
-        }
-    }
-    return null;
+function deleteProduct($id) {
+    $pdo = getDbConnection();
+    $stmt = $pdo->prepare("DELETE FROM produtos WHERE id = ?");
+    return $stmt->execute([$id]);
 }
 
-// Redireciona para outra página passando uma mensagem via query string.
-// A execução é interrompida após o redirecionamento.
+function findRecordById($id) {
+    $pdo = getDbConnection();
+    $stmt = $pdo->prepare("SELECT id, nome, categoria, preco, quantidade FROM produtos WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function redirectWithMessage($location, $message, $type = 'success') {
     header('Location: ' . $location . '?message=' . urlencode($message) . '&type=' . urlencode($type));
     exit;

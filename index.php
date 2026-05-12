@@ -1,10 +1,7 @@
 <?php
 require_once 'functions.php';
 
-// Lê os registros atuais do arquivo JSON.
 $records = readData();
-
-// Captura mensagens de feedback enviadas por query string.
 $message = $_GET['message'] ?? '';
 $type = $_GET['type'] ?? 'success';
 ?>
@@ -17,7 +14,6 @@ $type = $_GET['type'] ?? 'success';
         <p>Visualize, edite ou exclua os produtos do pet shop.</p>
     </div>
 
-    <!-- Exibe mensagem de sucesso ou erro quando disponível -->
     <?php if ($message): ?>
         <div class="alert <?php echo $type === 'error' ? 'alert-error' : 'alert-success'; ?>">
             <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
@@ -38,12 +34,10 @@ $type = $_GET['type'] ?? 'success';
             </thead>
             <tbody>
                 <?php if (empty($records)): ?>
-                    <!-- Mensagem exibida quando não há produtos cadastrados -->
                     <tr>
-                        <td colspan="6">Nenhum produto cadastrado. Use o botão "Cadastrar" para adicionar um novo produto.</td>
+                        <td colspan="6">Nenhum produto cadastrado.</td>
                     </tr>
                 <?php else: ?>
-                    <!-- Lista cada registro em uma linha da tabela -->
                     <?php foreach ($records as $record): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($record['id'], ENT_QUOTES, 'UTF-8'); ?></td>

@@ -1,6 +1,4 @@
-<?php
-// Cabeçalho compartilhado entre páginas para manter o mesmo layout.
-?>
+<?php ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,12 +18,10 @@
             <p>Gerenciamento de produtos para pet shop</p>
         </div>
         <nav>
-            <!-- Links de navegação para as páginas principais do sistema -->
             <a href="index.php">Listar</a>
             <a href="create.php">Cadastrar</a>
         </nav>
     </div>
 </header>
 
-<!-- Início do conteúdo principal exibido em cada página -->
 <main class="container">

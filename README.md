@@ -1,12 +1,12 @@
 # Pet Shop Manager - CRUD em PHP Puro
 
-Sistema de gerenciamento de produtos para pet shop. CRUD básico em PHP puro que utiliza um arquivo JSON como armazenamento. Criado para apresentação acadêmica e projetos educacionais.
+Sistema de gerenciamento de produtos para pet shop. CRUD básico em PHP puro que utiliza PostgreSQL como armazenamento. Criado para apresentação acadêmica e projetos educacionais.
 
 ## Características
 
 ✅ CRUD funcional e simples  
 ✅ Gerenciamento de produtos de pet shop  
-✅ Armazenamento em JSON (sem banco de dados)  
+✅ Armazenamento em PostgreSQL  
 ✅ Sem bibliotecas externas ou frameworks  
 ✅ Interface HTML básica e responsiva  
 ✅ Tema Pet Shop com cores personalizadas  
@@ -28,7 +28,7 @@ Sistema de gerenciamento de produtos para pet shop. CRUD básico em PHP puro que
 - `delete.php` → Exclusão de produto
 - `functions.php` → Funções reutilizáveis de leitura/escrita e validação
 - `header.php` / `footer.php` → Componentes de layout HTML
-- `data.json` → Armazenamento de dados em JSON
+- `create_tables.sql` → Script para criar a tabela `produtos` no PostgreSQL
 - `style.css` → Estilo simples e responsivo
 
 ## Como Rodar Localmente
@@ -63,26 +63,17 @@ Sistema de gerenciamento de produtos para pet shop. CRUD básico em PHP puro que
 - Remoção de produto do estoque
 - Confirmação de exclusão antes de executar
 
-## Estrutura de Dados (JSON)
+## Estrutura do Banco de Dados
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Ração Premium para Gatos",
-    "category": "Alimentos",
-    "price": 49.90,
-    "quantity": 15
-  },
-  {
-    "id": 2,
-    "name": "Bola de Brinquedo para Cães",
-    "category": "Brinquedos",
-    "price": 12.50,
-    "quantity": 32
-  }
-]
-```
+O sistema usa a tabela `produtos` no PostgreSQL. O script `create_tables.sql` já contém a criação da tabela e dados de exemplo.
+
+A tabela `produtos` possui as colunas:
+
+- `id` (serial, chave primária)
+- `nome` (texto)
+- `categoria` (texto)
+- `preco` (decimal)
+- `quantidade` (inteiro)
 
 ## Observações Importantes
 
